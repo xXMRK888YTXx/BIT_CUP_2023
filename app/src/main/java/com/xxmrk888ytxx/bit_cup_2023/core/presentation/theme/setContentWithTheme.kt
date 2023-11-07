@@ -10,7 +10,7 @@ fun ComponentActivity.setContentWithTheme(
     content: @Composable () -> Unit,
 ) {
     setContent {
-        val themeColors = if (isSystemInDarkTheme()) Theme.dark else Theme.light
+        val themeColors = if (isSystemInDarkTheme()) darkTheme else lightTheme
         CompositionLocalProvider(
             LocalTheme provides themeColors,
             content = content

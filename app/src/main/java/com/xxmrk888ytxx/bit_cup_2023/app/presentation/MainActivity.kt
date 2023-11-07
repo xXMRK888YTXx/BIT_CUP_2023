@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.Screen
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.setContentWithTheme
+import com.xxmrk888ytxx.bit_cup_2023.splash.presentation.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +19,10 @@ class MainActivity : ComponentActivity() {
 
             NavHost(navController = navController, startDestination = Screen.Splash.route) {
                 composable(Screen.Splash.route) {
+                    SplashScreen(navController = navController)
+                }
+
+                composable(Screen.Home.route) {
 
                 }
             }

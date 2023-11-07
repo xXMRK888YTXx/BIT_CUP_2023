@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">BIT_CUP_2023</string>
+    <string name="app_name" translatable="false">BIT_CUP_2023</string>
+    <string name="search">Search</string>
 </resources>

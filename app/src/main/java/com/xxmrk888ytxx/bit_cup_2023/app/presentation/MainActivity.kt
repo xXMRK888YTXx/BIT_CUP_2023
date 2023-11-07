@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.Screen
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.setContentWithTheme
-import com.xxmrk888ytxx.bit_cup_2023.home.HomeScreen
+import com.xxmrk888ytxx.bit_cup_2023.home.presentation.HomeScreen
 import com.xxmrk888ytxx.bit_cup_2023.splash.presentation.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 

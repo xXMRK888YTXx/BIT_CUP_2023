@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.bit_cup_2023.home
+package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

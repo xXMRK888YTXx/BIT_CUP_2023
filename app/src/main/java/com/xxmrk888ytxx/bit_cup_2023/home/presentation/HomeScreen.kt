@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -15,6 +19,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -31,6 +36,7 @@ import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigat
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.ApplicationFont
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.lightColors
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
+import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Category
 
 @Composable
 fun HomeScreen(
@@ -58,10 +64,57 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(padding),
         ) {
-
+            CategoryList(
+                categories = screenState.categories,
+                searchBarText = screenState.searchBarScreen,
+                onCategoryClicked = {
+                    homeViewModel.onSearchTextChanged(it.categoryName)
+                }
+            )
         }
     }
 
+}
+
+@Composable
+fun CategoryList(
+    categories: List<Category>,
+    searchBarText:String,
+    onCategoryClicked:(Category) -> Unit
+) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp)
+    ) {
+        itemsIndexed(categories, key = { _, it -> it.id }) { index, it ->
+            val isSelected = remember(categories, searchBarText) {
+                it.categoryName == searchBarText
+            }
+
+            Button(
+                onClick = { onCategoryClicked(it) },
+                shape = RoundedCornerShape(100),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isSelected) theme.selectedCategory else theme.nonSelectedCategory
+                ),
+                modifier = Modifier.padding(
+                    start = if (index == 0) 0.dp else 11.dp,
+                )
+            ) {
+                Text(
+                    text = it.categoryName,
+                    style = TextStyle(
+                        fontFamily = ApplicationFont.mulish,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W400,
+                        color = if (isSelected) theme.selectedCategoryTextColor
+                        else theme.nonSelectedCategoryTextColor
+                    )
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -81,7 +134,11 @@ private fun SearchBar(
         onValueChange = onTextChanged,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(24.dp)
+            .padding(
+                top = 12.dp,
+                start = 24.dp,
+                end = 24.dp
+            )
             .clip(RoundedCornerShape(50)),
         colors = TextFieldDefaults.colors(
             focusedIndicatorColor = Color.Transparent,
@@ -103,8 +160,8 @@ private fun SearchBar(
             )
         },
         trailingIcon = {
-            if(text.isNotEmpty()) {
-                IconButton(onClick = { onTextChanged("")}) {
+            if (text.isNotEmpty()) {
+                IconButton(onClick = { onTextChanged("") }) {
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_clear_24),
                         contentDescription = "",

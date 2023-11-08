@@ -21,9 +21,14 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val searchBarText = MutableStateFlow("")
     private val categories = MutableStateFlow(emptyList<Category>())
+    private val selectedCategoryId = MutableStateFlow<String?>(null)
 
-    val screenState = combine(searchBarText, categories) { searchBarText, categories ->
-        HomeScreenState(searchBarText, categories)
+    val screenState = combine(
+        searchBarText,
+        categories,
+        selectedCategoryId
+    ) { searchBarText, categories, selectedCategoryId ->
+        HomeScreenState(searchBarText, categories, selectedCategoryId)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), HomeScreenState())
 
     fun onSearchTextChanged(text: String) {
@@ -33,11 +38,9 @@ class HomeViewModel @Inject constructor(
     private fun loadCategory() {
         viewModelScope.launch(Dispatchers.IO) {
             getCategoriesUseCase()
-                .onSuccess {
-                    categories.update { it }
-                }
-                .onFailure {
-                    it.message
+                .onSuccess { categoriesList ->
+                    categories.update { categoriesList }
+                    selectedCategoryId.update { categoriesList.firstOrNull()?.id }
                 }
         }
     }

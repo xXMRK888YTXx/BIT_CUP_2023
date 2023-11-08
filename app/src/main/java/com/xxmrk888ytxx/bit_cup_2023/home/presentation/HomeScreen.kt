@@ -1,5 +1,6 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -33,7 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -44,7 +46,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
@@ -65,6 +66,14 @@ fun HomeScreen(
         navController = navController,
         navigationAction = homeViewModel.navigationAction
     )
+
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = homeViewModel.toastAction, block = {
+        homeViewModel.toastAction.collect {
+            Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
+        }
+    })
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -294,7 +303,7 @@ fun InternetErrorStub(
 
         TextButton(onClick = onExplore) {
             Text(
-                text = stringResource(R.string.explore),
+                text = stringResource(R.string.try_again),
                 style = TextStyle(
                     color = theme.explore,
                     fontSize = 18.sp,

@@ -3,6 +3,7 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 
 import androidx.lifecycle.viewModelScope
+import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseViewModel
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Category
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
@@ -11,8 +12,10 @@ import com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase.GetCuratedImageUseCase
 import com.xxmrk888ytxx.bit_cup_2023.home.presentation.model.HomeScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -39,6 +42,11 @@ class HomeViewModel @Inject constructor(
         isLoadingCategories || isLoadingCuratedImages
     }
 
+    private val _toastAction = MutableSharedFlow<Int>(
+        extraBufferCapacity = 1
+    )
+    val toastAction = _toastAction.asSharedFlow()
+
     val screenState = combine(
         searchBarText,
         categories,
@@ -46,14 +54,14 @@ class HomeViewModel @Inject constructor(
         images,
         isLoading,
         isInternetError
-    ) { array ->
+    ) { flowArray ->
         HomeScreenState(
-            array[0] as String,
-            array[1] as List<Category>,
-            array[2] as String?,
-            array[3] as List<Image>,
-            array[4] as Boolean,
-            array[5] as Boolean,
+            flowArray[0] as String,
+            flowArray[1] as List<Category>,
+            flowArray[2] as String?,
+            flowArray[3] as List<Image>,
+            flowArray[4] as Boolean,
+            flowArray[5] as Boolean,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), HomeScreenState())
 
@@ -77,17 +85,24 @@ class HomeViewModel @Inject constructor(
         isLoadingCuratedImages.update { true }
         viewModelScope.launch(Dispatchers.IO) {
             getCuratedImageUseCase()
-                .onSuccess { curatedImages ->
-                    images.update { curatedImages }
+                .onSuccess { curatedImagesLoadResult ->
+                    images.update { curatedImagesLoadResult.images }
+
+                    if (curatedImagesLoadResult.isFromCache) {
+                        _toastAction.tryEmit(R.string.no_internet_connection_data_has_been_loaded_from_cache)
+                    }
                 }
-                .onFailure { isInternetError.update { true } }
+                .onFailure {
+                    isInternetError.update { true }
+                    _toastAction.tryEmit(R.string.no_internet_connection)
+                }
 
             isLoadingCuratedImages.update { false }
         }
     }
 
     fun onRetryLoadImage() {
-        if(categories.value.isEmpty()) {
+        if (categories.value.isEmpty()) {
             loadCategory()
         }
         loadCuratedImages()

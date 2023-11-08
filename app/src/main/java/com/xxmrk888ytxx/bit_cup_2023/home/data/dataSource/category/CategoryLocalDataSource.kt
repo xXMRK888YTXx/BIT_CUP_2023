@@ -1,7 +1,7 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource
+package com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.category
 
-import com.xxmrk888ytxx.bit_cup_2023.home.data.database.CategoryDao
-import com.xxmrk888ytxx.bit_cup_2023.home.data.database.CategoryEntity
+import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.CategoryDao
+import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.CategoryEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

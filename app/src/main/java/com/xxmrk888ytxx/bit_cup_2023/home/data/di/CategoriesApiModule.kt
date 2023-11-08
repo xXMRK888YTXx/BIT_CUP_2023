@@ -2,7 +2,7 @@ package com.xxmrk888ytxx.bit_cup_2023.home.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.xxmrk888ytxx.bit_cup_2023.home.data.api.AttachPexelsApiKeyInterceptor
-import com.xxmrk888ytxx.bit_cup_2023.home.data.api.CategoriesApi
+import com.xxmrk888ytxx.bit_cup_2023.home.data.api.PexelsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +16,7 @@ import retrofit2.Retrofit
 @InstallIn(SingletonComponent::class)
 class CategoriesApiModule {
     @Provides
-    fun provideCategoriesApi(): CategoriesApi {
+    fun providePexelsApi(): PexelsApi {
         val okHttpClient = OkHttpClient
             .Builder()
             .addInterceptor(AttachPexelsApiKeyInterceptor())
@@ -33,7 +33,7 @@ class CategoriesApiModule {
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
 
-        return retrofit.create(CategoriesApi::class.java)
+        return retrofit.create(PexelsApi::class.java)
     }
 
     private companion object {

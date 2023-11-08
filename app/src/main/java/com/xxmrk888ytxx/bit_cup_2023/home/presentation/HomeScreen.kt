@@ -1,5 +1,6 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,9 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -31,12 +36,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.SubcomposeAsyncImage
 import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.ApplicationFont
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.lightColors
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Category
+import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
 
 @Composable
 fun HomeScreen(
@@ -71,16 +78,41 @@ fun HomeScreen(
                     homeViewModel.onSearchTextChanged(it.categoryName)
                 }
             )
+            ImageList(screenState.images)
         }
     }
 
 }
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun ImageList(images: List<Image>) {
+    LazyVerticalStaggeredGrid(
+        columns = StaggeredGridCells.Fixed(2),
+        modifier = Modifier.fillMaxSize()
+    ) {
+        items(images, key = { it.id }) {
+            SubcomposeAsyncImage(
+                model = it.imageUrl,
+                contentDescription = "",
+                modifier = Modifier
+                    .padding(12.dp)
+                    .clip(RoundedCornerShape(20.dp))
+                    .animateItemPlacement(),
+                loading = {
+                    CircularProgressIndicator()
+                },
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CategoryList(
     categories: List<Category>,
-    searchBarText:String,
-    onCategoryClicked:(Category) -> Unit
+    searchBarText: String,
+    onCategoryClicked: (Category) -> Unit,
 ) {
     LazyRow(
         modifier = Modifier
@@ -96,11 +128,13 @@ fun CategoryList(
                 onClick = { onCategoryClicked(it) },
                 shape = RoundedCornerShape(100),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (isSelected) theme.selectedCategory else theme.nonSelectedCategory
+                    containerColor = if (isSelected) theme.selectedCategory else theme.nonSelectedCategory,
                 ),
-                modifier = Modifier.padding(
-                    start = if (index == 0) 0.dp else 11.dp,
-                )
+                modifier = Modifier
+                    .padding(
+                        start = if (index == 0) 0.dp else 11.dp,
+                    )
+                    .animateItemPlacement(),
             ) {
                 Text(
                     text = it.categoryName,

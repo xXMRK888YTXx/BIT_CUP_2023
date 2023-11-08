@@ -1,9 +1,10 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.data.database
+package com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.CategoryEntity
 
 @Dao
 interface CategoryDao {

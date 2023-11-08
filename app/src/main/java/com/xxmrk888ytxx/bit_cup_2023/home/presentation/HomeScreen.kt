@@ -54,6 +54,8 @@ import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.lightColors
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Category
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun HomeScreen(
@@ -70,8 +72,10 @@ fun HomeScreen(
     val context = LocalContext.current
 
     LaunchedEffect(key1 = homeViewModel.toastAction, block = {
-        homeViewModel.toastAction.collect {
-            Toast.makeText(context,it,Toast.LENGTH_SHORT).show()
+        withContext(Dispatchers.Main) {
+            homeViewModel.toastAction.collect {
+                Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            }
         }
     })
     Scaffold(

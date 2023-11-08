@@ -9,6 +9,7 @@ import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Category
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase.GetCategoriesUseCase
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase.GetCuratedImageUseCase
+import com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase.GetInternetStateUseCase
 import com.xxmrk888ytxx.bit_cup_2023.home.presentation.model.HomeScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -26,6 +28,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val getCuratedImageUseCase: GetCuratedImageUseCase,
+    private val getInternetStateUseCase: GetInternetStateUseCase
 ) : BaseViewModel() {
     private val searchBarText = MutableStateFlow("")
     private val categories = MutableStateFlow(emptyList<Category>())
@@ -43,7 +46,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private val _toastAction = MutableSharedFlow<Int>(
-        extraBufferCapacity = 1
+        extraBufferCapacity = 1, replay = 1
     )
     val toastAction = _toastAction.asSharedFlow()
 
@@ -88,7 +91,7 @@ class HomeViewModel @Inject constructor(
                 .onSuccess { curatedImagesLoadResult ->
                     images.update { curatedImagesLoadResult.images }
 
-                    if (curatedImagesLoadResult.isFromCache) {
+                    if (curatedImagesLoadResult.isFromCache && !getInternetStateUseCase().first()) {
                         _toastAction.tryEmit(R.string.no_internet_connection_data_has_been_loaded_from_cache)
                     }
                 }

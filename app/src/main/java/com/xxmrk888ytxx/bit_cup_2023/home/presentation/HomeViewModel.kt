@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 
 import androidx.lifecycle.viewModelScope
@@ -26,10 +28,14 @@ class HomeViewModel @Inject constructor(
     private val categories = MutableStateFlow(emptyList<Category>())
     private val selectedCategoryId = MutableStateFlow<String?>(null)
     private val images = MutableStateFlow<List<Image>>(emptyList())
+    private val isInternetError = MutableStateFlow(false)
 
     private val isLoadingCategories = MutableStateFlow(false)
     private val isLoadingCuratedImages = MutableStateFlow(false)
-    private val isLoading = combine(isLoadingCategories,isLoadingCuratedImages) { isLoadingCategories,isLoadingCuratedImages ->
+    private val isLoading = combine(
+        isLoadingCategories,
+        isLoadingCuratedImages
+    ) { isLoadingCategories, isLoadingCuratedImages ->
         isLoadingCategories || isLoadingCuratedImages
     }
 
@@ -38,9 +44,17 @@ class HomeViewModel @Inject constructor(
         categories,
         selectedCategoryId,
         images,
-        isLoading
-    ) { searchBarText, categories, selectedCategoryId, images, isLoading ->
-        HomeScreenState(searchBarText, categories, selectedCategoryId, images, isLoading)
+        isLoading,
+        isInternetError
+    ) { array ->
+        HomeScreenState(
+            array[0] as String,
+            array[1] as List<Category>,
+            array[2] as String?,
+            array[3] as List<Image>,
+            array[4] as Boolean,
+            array[5] as Boolean,
+        )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), HomeScreenState())
 
     fun onSearchTextChanged(text: String) {
@@ -55,7 +69,6 @@ class HomeViewModel @Inject constructor(
                     categories.update { categoriesList }
                     selectedCategoryId.update { categoriesList.firstOrNull()?.id }
                 }
-                .onFailure { it.message }
             isLoadingCategories.update { false }
         }
     }
@@ -67,10 +80,17 @@ class HomeViewModel @Inject constructor(
                 .onSuccess { curatedImages ->
                     images.update { curatedImages }
                 }
-                .onFailure { it.message }
+                .onFailure { isInternetError.update { true } }
 
             isLoadingCuratedImages.update { false }
         }
+    }
+
+    fun onRetryLoadImage() {
+        if(categories.value.isEmpty()) {
+            loadCategory()
+        }
+        loadCuratedImages()
     }
 
     init {

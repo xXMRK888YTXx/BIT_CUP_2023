@@ -9,4 +9,5 @@ data class HomeScreenState(
     val selectedCategoryId: String? = null,
     val images: List<Image> = emptyList(),
     val isLoading: Boolean = false,
+    val isInternetError: Boolean = false,
 )

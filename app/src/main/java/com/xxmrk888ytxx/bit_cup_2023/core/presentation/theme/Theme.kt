@@ -14,7 +14,8 @@ data class Theme(
     val stubText: Color,
     val explore: Color,
     val loadingIndicator: Color,
-    val loadingIndicatorTrack: Color
+    val loadingIndicatorTrack: Color,
+    val internetStubColor: Color,
 )
 
 val lightTheme = Theme(
@@ -29,7 +30,8 @@ val lightTheme = Theme(
     stubText = Color(0xFF333333),
     explore = lightColors.red,
     loadingIndicator = lightColors.red,
-    loadingIndicatorTrack = lightColors.gray
+    loadingIndicatorTrack = lightColors.gray,
+    internetStubColor = lightColors.black
 )
 
 val darkTheme = Theme(
@@ -44,5 +46,6 @@ val darkTheme = Theme(
     stubText = darkColors.white,
     explore = darkColors.red,
     loadingIndicator = darkColors.red,
-    loadingIndicatorTrack = darkColors.darkGray
+    loadingIndicatorTrack = darkColors.darkGray,
+    internetStubColor = darkColors.white
 )

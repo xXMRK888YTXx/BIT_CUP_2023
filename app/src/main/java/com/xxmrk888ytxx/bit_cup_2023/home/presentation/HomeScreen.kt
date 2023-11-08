@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
@@ -88,6 +89,21 @@ fun HomeScreen(
             )
             if (screenState.isLoading) {
                 LoadingIndicator()
+            }
+
+            when {
+                screenState.images.isNotEmpty() -> ImageList(
+                    screenState.images
+                )
+
+                screenState.isInternetError -> InternetErrorStub {
+                    homeViewModel.onRetryLoadImage()
+                }
+
+                else -> ImageNotFoundStub {
+                    homeViewModel.onSearchTextChanged("")
+                    homeViewModel.loadCuratedImages()
+                }
             }
 
             if (screenState.images.isNotEmpty()) {
@@ -256,6 +272,38 @@ fun ImageNotFoundStub(
         textStub = stringResource(R.string.no_results_found),
         onExplore = onExplore
     )
+}
+
+@Composable
+fun InternetErrorStub(
+    onExplore: () -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.no_network_icon),
+            contentDescription = "",
+            modifier = Modifier
+                .padding(bottom = 24.dp)
+                .size(125.dp),
+            tint = theme.internetStubColor
+        )
+
+        TextButton(onClick = onExplore) {
+            Text(
+                text = stringResource(R.string.explore),
+                style = TextStyle(
+                    color = theme.explore,
+                    fontSize = 18.sp,
+                    fontWeight = W700,
+                    fontFamily = ApplicationFont.mulish
+                )
+            )
+        }
+    }
 }
 
 @Composable

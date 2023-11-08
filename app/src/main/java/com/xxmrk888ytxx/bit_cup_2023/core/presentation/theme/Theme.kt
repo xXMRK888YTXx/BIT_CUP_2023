@@ -13,6 +13,8 @@ data class Theme(
     val nonSelectedCategoryTextColor: Color,
     val stubText: Color,
     val explore: Color,
+    val loadingIndicator: Color,
+    val loadingIndicatorTrack: Color
 )
 
 val lightTheme = Theme(
@@ -25,7 +27,9 @@ val lightTheme = Theme(
     selectedCategoryTextColor = lightColors.white,
     nonSelectedCategoryTextColor = lightColors.black,
     stubText = Color(0xFF333333),
-    explore = lightColors.red
+    explore = lightColors.red,
+    loadingIndicator = lightColors.red,
+    loadingIndicatorTrack = lightColors.gray
 )
 
 val darkTheme = Theme(
@@ -38,5 +42,7 @@ val darkTheme = Theme(
     selectedCategoryTextColor = darkColors.white,
     nonSelectedCategoryTextColor = darkColors.white,
     stubText = darkColors.white,
-    explore = darkColors.red
+    explore = darkColors.red,
+    loadingIndicator = darkColors.red,
+    loadingIndicatorTrack = darkColors.darkGray
 )

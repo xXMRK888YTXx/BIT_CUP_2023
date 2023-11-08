@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -18,6 +19,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -31,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -83,16 +86,32 @@ fun HomeScreen(
                     homeViewModel.onSearchTextChanged(it.categoryName)
                 }
             )
+            if (screenState.isLoading) {
+                LoadingIndicator()
+            }
 
-            if(screenState.images.isNotEmpty()) {
+            if (screenState.images.isNotEmpty()) {
                 ImageList(screenState.images)
             } else if (!screenState.isLoading) {
                 ImageNotFoundStub {
+                    homeViewModel.onSearchTextChanged("")
                     homeViewModel.loadCuratedImages()
                 }
             }
         }
     }
+}
+
+@Composable
+fun LoadingIndicator() {
+    LinearProgressIndicator(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 24.dp)
+            .height(4.dp),
+        color = theme.loadingIndicator,
+        trackColor = theme.loadingIndicatorTrack,
+    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -128,7 +147,11 @@ fun CategoryList(
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(24.dp)
+            .padding(
+                top = 24.dp,
+                start = 24.dp,
+                end = 24.dp
+            )
     ) {
         itemsIndexed(categories, key = { _, it -> it.id }) { index, it ->
             val isSelected = remember(categories, searchBarText) {
@@ -227,7 +250,7 @@ private fun SearchBar(
 
 @Composable
 fun ImageNotFoundStub(
-    onExplore:() -> Unit
+    onExplore: () -> Unit,
 ) {
     BaseStub(
         textStub = stringResource(R.string.no_results_found),

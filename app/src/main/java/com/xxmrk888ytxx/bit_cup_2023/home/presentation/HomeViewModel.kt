@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
     private val isLoadingCategories = MutableStateFlow(false)
     private val isLoadingCuratedImages = MutableStateFlow(false)
     private val isLoading = combine(isLoadingCategories,isLoadingCuratedImages) { isLoadingCategories,isLoadingCuratedImages ->
-        isLoadingCategories && isLoadingCuratedImages
+        isLoadingCategories || isLoadingCuratedImages
     }
 
     val screenState = combine(

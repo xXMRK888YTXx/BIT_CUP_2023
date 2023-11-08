@@ -7,10 +7,12 @@ data class Theme(
     val background: Color,
     val searchBar: Color,
     val searchBarPlaceholder: Color,
-    val selectedCategory:Color,
+    val selectedCategory: Color,
     val nonSelectedCategory: Color,
-    val selectedCategoryTextColor:Color,
-    val nonSelectedCategoryTextColor:Color,
+    val selectedCategoryTextColor: Color,
+    val nonSelectedCategoryTextColor: Color,
+    val stubText: Color,
+    val explore: Color,
 )
 
 val lightTheme = Theme(
@@ -22,6 +24,8 @@ val lightTheme = Theme(
     nonSelectedCategory = lightColors.gray,
     selectedCategoryTextColor = lightColors.white,
     nonSelectedCategoryTextColor = lightColors.black,
+    stubText = Color(0xFF333333),
+    explore = lightColors.red
 )
 
 val darkTheme = Theme(
@@ -33,4 +37,6 @@ val darkTheme = Theme(
     nonSelectedCategory = darkColors.gray,
     selectedCategoryTextColor = darkColors.white,
     nonSelectedCategoryTextColor = darkColors.white,
+    stubText = darkColors.white,
+    explore = darkColors.red
 )

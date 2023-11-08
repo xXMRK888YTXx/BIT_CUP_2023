@@ -1,6 +1,7 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,12 +20,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -32,6 +35,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.W500
+import androidx.compose.ui.text.font.FontWeight.Companion.W700
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -78,10 +83,16 @@ fun HomeScreen(
                     homeViewModel.onSearchTextChanged(it.categoryName)
                 }
             )
-            ImageList(screenState.images)
+
+            if(screenState.images.isNotEmpty()) {
+                ImageList(screenState.images)
+            } else if (!screenState.isLoading) {
+                ImageNotFoundStub {
+                    homeViewModel.loadCuratedImages()
+                }
+            }
         }
     }
-
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -212,5 +223,48 @@ private fun SearchBar(
             )
         }
     )
+}
 
+@Composable
+fun ImageNotFoundStub(
+    onExplore:() -> Unit
+) {
+    BaseStub(
+        textStub = stringResource(R.string.no_results_found),
+        onExplore = onExplore
+    )
+}
+
+@Composable
+fun BaseStub(
+    textStub: String,
+    onExplore: () -> Unit,
+) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Text(
+            text = textStub,
+            style = TextStyle(
+                fontFamily = ApplicationFont.mulish,
+                fontWeight = W500,
+                color = theme.stubText,
+                fontSize = 14.sp
+            )
+        )
+
+        TextButton(onClick = onExplore) {
+            Text(
+                text = stringResource(R.string.explore),
+                style = TextStyle(
+                    color = theme.explore,
+                    fontSize = 18.sp,
+                    fontWeight = W700,
+                    fontFamily = ApplicationFont.mulish
+                )
+            )
+        }
+    }
 }

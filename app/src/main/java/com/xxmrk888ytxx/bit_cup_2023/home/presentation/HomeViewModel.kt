@@ -27,13 +27,20 @@ class HomeViewModel @Inject constructor(
     private val selectedCategoryId = MutableStateFlow<String?>(null)
     private val images = MutableStateFlow<List<Image>>(emptyList())
 
+    private val isLoadingCategories = MutableStateFlow(false)
+    private val isLoadingCuratedImages = MutableStateFlow(false)
+    private val isLoading = combine(isLoadingCategories,isLoadingCuratedImages) { isLoadingCategories,isLoadingCuratedImages ->
+        isLoadingCategories && isLoadingCuratedImages
+    }
+
     val screenState = combine(
         searchBarText,
         categories,
         selectedCategoryId,
-        images
-    ) { searchBarText, categories, selectedCategoryId, images ->
-        HomeScreenState(searchBarText, categories, selectedCategoryId, images)
+        images,
+        isLoading
+    ) { searchBarText, categories, selectedCategoryId, images, isLoading ->
+        HomeScreenState(searchBarText, categories, selectedCategoryId, images, isLoading)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), HomeScreenState())
 
     fun onSearchTextChanged(text: String) {
@@ -42,22 +49,27 @@ class HomeViewModel @Inject constructor(
 
     private fun loadCategory() {
         viewModelScope.launch(Dispatchers.IO) {
+            isLoadingCategories.update { true }
             getCategoriesUseCase()
                 .onSuccess { categoriesList ->
                     categories.update { categoriesList }
                     selectedCategoryId.update { categoriesList.firstOrNull()?.id }
                 }
                 .onFailure { it.message }
+            isLoadingCategories.update { false }
         }
     }
 
-    private fun loadCuratedImages() {
+    fun loadCuratedImages() {
+        isLoadingCuratedImages.update { true }
         viewModelScope.launch(Dispatchers.IO) {
             getCuratedImageUseCase()
                 .onSuccess { curatedImages ->
                     images.update { curatedImages }
                 }
                 .onFailure { it.message }
+
+            isLoadingCuratedImages.update { false }
         }
     }
 

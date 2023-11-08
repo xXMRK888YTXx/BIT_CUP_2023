@@ -7,6 +7,8 @@ import com.xxmrk888ytxx.bit_cup_2023.R
 
 object ApplicationFont {
     val mulish = FontFamily(
-        Font(R.font.mulish_regular, weight = FontWeight.W400)
+        Font(R.font.mulish_regular, weight = FontWeight.W400),
+        Font(R.font.mulish_medium, weight = FontWeight.W500),
+        Font(R.font.mulish_bold, weight = FontWeight.W700),
     )
 }

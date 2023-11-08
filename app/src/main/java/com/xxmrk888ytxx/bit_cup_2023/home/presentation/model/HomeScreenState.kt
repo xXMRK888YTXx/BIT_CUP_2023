@@ -8,4 +8,5 @@ data class HomeScreenState(
     val categories: List<Category> = emptyList(),
     val selectedCategoryId: String? = null,
     val images: List<Image> = emptyList(),
+    val isLoading: Boolean = false,
 )

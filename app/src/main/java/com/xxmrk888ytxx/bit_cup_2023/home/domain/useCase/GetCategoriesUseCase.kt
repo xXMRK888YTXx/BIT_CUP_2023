@@ -7,5 +7,11 @@ import javax.inject.Inject
 class GetCategoriesUseCase @Inject constructor(
     private val categoryRepository: CategoryRepository,
 ) {
-    suspend operator fun invoke(): Result<List<Category>> = categoryRepository.getCategories()
+    suspend operator fun invoke(): Result<List<Category>> {
+        return try {
+            Result.success(categoryRepository.getCategories())
+        }catch (e:Exception) {
+            Result.failure(e)
+        }
+    }
 }

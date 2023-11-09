@@ -34,7 +34,7 @@ val lightTheme = Theme(
     loadingIndicator = lightColors.red,
     loadingIndicatorTrack = lightColors.gray,
     internetStubColor = lightColors.black,
-    imagePlaceholder = lightColors.black.copy(0.4f),
+    imagePlaceholder = lightColors.black.copy(0.6f),
     imagePlaceholderText = lightColors.white
 )
 
@@ -52,6 +52,6 @@ val darkTheme = Theme(
     loadingIndicator = darkColors.red,
     loadingIndicatorTrack = darkColors.darkGray,
     internetStubColor = darkColors.white,
-    imagePlaceholder = lightColors.black.copy(0.4f),
+    imagePlaceholder = lightColors.black.copy(0.6f),
     imagePlaceholderText = lightColors.white
 )

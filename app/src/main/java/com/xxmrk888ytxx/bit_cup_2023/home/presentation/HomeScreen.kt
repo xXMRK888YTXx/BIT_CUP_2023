@@ -17,6 +17,8 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -44,6 +46,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.W400
 import androidx.compose.ui.text.font.FontWeight.Companion.W500
 import androidx.compose.ui.text.font.FontWeight.Companion.W700
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -109,13 +112,13 @@ fun HomeScreen(
             }
 
             when {
-                screenState.images.isNotEmpty() -> ImageList(
-                    screenState.images
-                )
-
                 screenState.isInternetError -> InternetErrorStub {
                     homeViewModel.onRetryLoadImage()
                 }
+
+                screenState.images.isNotEmpty() -> ImageList(
+                    screenState.images
+                )
 
                 else -> ImageNotFoundStub {
                     homeViewModel.onSearchTextChanged("")
@@ -302,7 +305,14 @@ private fun SearchBar(
                 text = stringResource(R.string.search),
                 style = textStyle
             )
-        }
+        },
+        singleLine = true,
+        keyboardActions = KeyboardActions(
+            onSearch = { onTextChanged(text) }
+        ),
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Search
+        )
     )
 }
 

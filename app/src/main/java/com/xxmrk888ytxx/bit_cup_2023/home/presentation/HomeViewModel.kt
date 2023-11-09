@@ -120,7 +120,12 @@ class HomeViewModel @Inject constructor(
         if (categories.value.isEmpty()) {
             loadCategory()
         }
-        loadCuratedImages()
+
+        if (searchBarText.value.isEmpty()) {
+            loadCuratedImages()
+        } else {
+            loadImagesBySearchQuery(searchBarText.value)
+        }
     }
 
     @OptIn(FlowPreview::class)
@@ -157,6 +162,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+
+    private fun collectImagesUpdates() {
+        viewModelScope.launch(Dispatchers.Default) {
+            images.collect { isInternetError.update { false } }
+        }
+    }
+
     private fun onInternetError() {
         isInternetError.update { true }
         _toastAction.tryEmit(R.string.no_internet_connection)
@@ -171,5 +183,6 @@ class HomeViewModel @Inject constructor(
         loadCategory()
         loadCuratedImages()
         collectSearchRequest()
+        collectImagesUpdates()
     }
 }

@@ -18,6 +18,9 @@ data class Theme(
     val internetStubColor: Color,
     val imagePlaceholder: Color,
     val imagePlaceholderText: Color,
+    val detailsScreenTopbarText: Color,
+    val detailsScreenTopbarNavigationButton: Color,
+    val detailsScreenTopbarNavigationButtonBackground: Color,
 )
 
 val lightTheme = Theme(
@@ -35,7 +38,10 @@ val lightTheme = Theme(
     loadingIndicatorTrack = lightColors.gray,
     internetStubColor = lightColors.black,
     imagePlaceholder = lightColors.black.copy(0.6f),
-    imagePlaceholderText = lightColors.white
+    imagePlaceholderText = lightColors.white,
+    detailsScreenTopbarText = Color(0xFF333333),
+    detailsScreenTopbarNavigationButton = lightColors.black,
+    detailsScreenTopbarNavigationButtonBackground = lightColors.gray
 )
 
 val darkTheme = Theme(
@@ -53,5 +59,8 @@ val darkTheme = Theme(
     loadingIndicatorTrack = darkColors.darkGray,
     internetStubColor = darkColors.white,
     imagePlaceholder = lightColors.black.copy(0.6f),
-    imagePlaceholderText = lightColors.white
+    imagePlaceholderText = lightColors.white,
+    detailsScreenTopbarText = darkColors.white,
+    detailsScreenTopbarNavigationButton = darkColors.white,
+    detailsScreenTopbarNavigationButtonBackground = darkColors.gray
 )

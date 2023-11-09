@@ -7,4 +7,5 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="no_internet_connection_data_has_been_loaded_from_cache">No internet connection. Data has been loaded from cache.</string>
     <string name="image_not_found">Image not found</string>
+    <string name="loading">Loading…</string>
 </resources>

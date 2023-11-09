@@ -2,6 +2,7 @@ package com.xxmrk888ytxx.bit_cup_2023.detail.presentaion
 
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseViewModel
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.NavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.detail.domain.useCase.GetImageUseCase
 import com.xxmrk888ytxx.bit_cup_2023.detail.presentaion.model.DetailsScreenState
 import dagger.assisted.Assisted
@@ -21,6 +22,10 @@ class DetailsViewModel @AssistedInject constructor(
 
     private val _screenState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Loading)
     val screenState = _screenState.asStateFlow()
+
+    fun navigateUp() {
+        sendNavigationAction(NavigationAction.NavigateUp)
+    }
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

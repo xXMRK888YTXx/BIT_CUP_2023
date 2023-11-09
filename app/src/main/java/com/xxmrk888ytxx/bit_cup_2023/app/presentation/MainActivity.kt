@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
 
                     val viewModel = viewModel { detailsViewModel.create(imageId, imageSource) }
 
-                    DetailsScreen(viewModel)
+                    DetailsScreen(viewModel, navController)
                 }
             }
         }

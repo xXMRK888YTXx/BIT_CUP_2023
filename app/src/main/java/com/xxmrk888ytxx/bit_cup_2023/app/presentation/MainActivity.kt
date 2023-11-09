@@ -10,9 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.Screen
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.Screen.Details.IMAGE_SOURCE_ARGUMENT_KEY
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.setContentWithTheme
-import com.xxmrk888ytxx.bit_cup_2023.detail.DetailsScreen
-import com.xxmrk888ytxx.bit_cup_2023.detail.DetailsViewModel
-import com.xxmrk888ytxx.bit_cup_2023.detail.toImageSourceType
+import com.xxmrk888ytxx.bit_cup_2023.detail.presentaion.DetailsScreen
+import com.xxmrk888ytxx.bit_cup_2023.detail.presentaion.DetailsViewModel
+import com.xxmrk888ytxx.bit_cup_2023.detail.presentaion.toImageSourceType
 import com.xxmrk888ytxx.bit_cup_2023.home.presentation.HomeScreen
 import com.xxmrk888ytxx.bit_cup_2023.splash.presentation.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint

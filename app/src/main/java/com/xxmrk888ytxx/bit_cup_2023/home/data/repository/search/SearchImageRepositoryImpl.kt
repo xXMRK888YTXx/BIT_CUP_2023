@@ -1,7 +1,7 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.data.repository.search
 
+import com.xxmrk888ytxx.bit_cup_2023.data.api.model.ImageDto
 import com.xxmrk888ytxx.bit_cup_2023.domain.model.Image
-import com.xxmrk888ytxx.bit_cup_2023.home.data.api.model.ImageDto
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.search.LocalSearchImageDataSource
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.search.RemoteSearchImageDataSource
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.ImageEntity

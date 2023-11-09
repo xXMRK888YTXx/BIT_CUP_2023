@@ -8,7 +8,7 @@ import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseViewModel
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.NavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.Screen
-import com.xxmrk888ytxx.bit_cup_2023.detail.ImageSourceType
+import com.xxmrk888ytxx.bit_cup_2023.detail.presentaion.ImageSourceType
 import com.xxmrk888ytxx.bit_cup_2023.domain.model.Image
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.Category
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase.GetCategoriesUseCase

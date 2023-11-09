@@ -1,6 +1,6 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.data.repository.category
 
-import com.xxmrk888ytxx.bit_cup_2023.home.data.api.model.CategoryDto
+import com.xxmrk888ytxx.bit_cup_2023.data.api.model.CategoryDto
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.category.CategoryLocalDataSource
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.category.CategoryRemoteDataSource
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.CategoryEntity

@@ -1,7 +1,7 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.search
 
-import com.xxmrk888ytxx.bit_cup_2023.home.data.api.PexelsApi
-import com.xxmrk888ytxx.bit_cup_2023.home.data.api.model.ImageDto
+import com.xxmrk888ytxx.bit_cup_2023.data.api.PexelsApi
+import com.xxmrk888ytxx.bit_cup_2023.data.api.model.ImageDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

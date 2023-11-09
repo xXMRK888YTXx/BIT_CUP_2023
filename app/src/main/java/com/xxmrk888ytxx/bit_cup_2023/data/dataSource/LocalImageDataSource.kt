@@ -12,4 +12,8 @@ class LocalImageDataSource @Inject constructor(
     suspend fun addImage(imageEntity: ImageEntity) = withContext(Dispatchers.IO) {
         imageDao.insert(imageEntity)
     }
+
+    suspend fun getImage(id: Long) = withContext(Dispatchers.IO) {
+        imageDao.getImage(id)
+    }
 }

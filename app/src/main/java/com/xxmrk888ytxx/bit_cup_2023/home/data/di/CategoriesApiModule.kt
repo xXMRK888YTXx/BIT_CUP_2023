@@ -1,8 +1,8 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.xxmrk888ytxx.bit_cup_2023.home.data.api.AttachPexelsApiKeyInterceptor
-import com.xxmrk888ytxx.bit_cup_2023.home.data.api.PexelsApi
+import com.xxmrk888ytxx.bit_cup_2023.data.api.AttachPexelsApiKeyInterceptor
+import com.xxmrk888ytxx.bit_cup_2023.data.api.PexelsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.data.api
+package com.xxmrk888ytxx.bit_cup_2023.data.api
 
 import okhttp3.Interceptor
 import okhttp3.Response

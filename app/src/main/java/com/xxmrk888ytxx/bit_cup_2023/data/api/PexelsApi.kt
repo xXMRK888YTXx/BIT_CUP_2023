@@ -1,8 +1,10 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.data.api
+package com.xxmrk888ytxx.bit_cup_2023.data.api
 
-import com.xxmrk888ytxx.bit_cup_2023.home.data.api.model.CategoriesResponse
-import com.xxmrk888ytxx.bit_cup_2023.home.data.api.model.ImagesResponse
+import com.xxmrk888ytxx.bit_cup_2023.data.api.model.CategoriesResponse
+import com.xxmrk888ytxx.bit_cup_2023.data.api.model.ImageDto
+import com.xxmrk888ytxx.bit_cup_2023.data.api.model.ImagesResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PexelsApi {
@@ -16,4 +18,9 @@ interface PexelsApi {
     suspend fun getImagesBySearchQuery(
         @Query("query") query: String,
     ): ImagesResponse
+
+    @GET("/v1/photos/{id}")
+    suspend fun getImage(
+        @Path("id") imageId: Long,
+    ): ImageDto
 }

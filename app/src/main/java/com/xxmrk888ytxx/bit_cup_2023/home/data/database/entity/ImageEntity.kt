@@ -12,4 +12,5 @@ data class ImageEntity(
     @PrimaryKey val id: Long,
     val name: String,
     val imageUrl: String,
+    val author: String,
 )

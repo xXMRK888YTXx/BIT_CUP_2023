@@ -11,8 +11,8 @@ import javax.inject.Inject
 
 class CuratedImageRepositoryImpl @Inject constructor(
     private val curatedImagesLocalDataSource: CuratedImagesLocalDataSource,
-    private val curatedImagesRemoteDataSource: CuratedImagesRemoteDataSource
-): CuratedImageRepository {
+    private val curatedImagesRemoteDataSource: CuratedImagesRemoteDataSource,
+) : CuratedImageRepository {
     override suspend fun getCuratedImages(): ImageLoadResult {
         val curatedImagesFromCache = curatedImagesLocalDataSource.getCuratedImages()
         if (curatedImagesFromCache.isNotEmpty()) {
@@ -35,10 +35,10 @@ class CuratedImageRepositoryImpl @Inject constructor(
     }
 
     private fun ImageEntity.toImage(): Image {
-        return Image(id, name, imageUrl)
+        return Image(id, name, imageUrl, author)
     }
 
     private fun ImageDto.toEntity(): ImageEntity {
-        return ImageEntity(id, imageName, imageResolutions.original)
+        return ImageEntity(id, imageName, imageResolutions.original, author)
     }
 }

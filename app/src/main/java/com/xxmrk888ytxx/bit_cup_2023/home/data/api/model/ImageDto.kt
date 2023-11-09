@@ -8,4 +8,5 @@ data class ImageDto(
     @SerialName("id") val id: Long,
     @SerialName("alt") val imageName: String,
     @SerialName("src") val imageResolutions: ImageResolutionDto,
+    @SerialName("photographer") val author: String,
 )

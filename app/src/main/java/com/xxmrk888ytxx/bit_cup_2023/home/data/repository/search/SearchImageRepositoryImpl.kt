@@ -37,10 +37,10 @@ class SearchImageRepositoryImpl @Inject constructor(
     }
 
     private fun ImageDto.toEntity(): ImageEntity {
-        return ImageEntity(id, imageName, imageResolutions.original)
+        return ImageEntity(id, imageName, imageResolutions.original, author)
     }
 
     private fun ImageEntity.toImage(): Image {
-        return Image(id, name, imageUrl)
+        return Image(id, name, imageUrl, author)
     }
 }

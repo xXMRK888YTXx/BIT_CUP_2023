@@ -53,11 +53,13 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
         containerColor = theme.background,
         topBar = { Topbar(screenState) { detailsViewModel.navigateUp() } },
         bottomBar = {
-            BottomBar(
-                isImageBookmarked = false,
-                onDownload = {},
-                onBookmarkStateChange = {}
-            )
+            if (screenState is DetailsScreenState.Loaded) {
+                BottomBar(
+                    isImageBookmarked = false,
+                    onDownload = {},
+                    onBookmarkStateChange = {}
+                )
+            }
         }
     ) { padding ->
         Column(
@@ -67,7 +69,7 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
         ) {
             when (screenState) {
                 DetailsScreenState.ImageNotFound -> ImageNotFoundStub {
-
+                    detailsViewModel.navigateUp()
                 }
 
                 is DetailsScreenState.Loaded -> {

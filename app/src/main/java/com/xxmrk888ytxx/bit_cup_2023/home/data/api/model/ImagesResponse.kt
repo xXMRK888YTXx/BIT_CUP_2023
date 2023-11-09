@@ -4,6 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CuratedImagesResponse(
-    @SerialName("photos") val images:List<ImageDto>
+data class ImagesResponse(
+    @SerialName("photos") val images: List<ImageDto>,
 )

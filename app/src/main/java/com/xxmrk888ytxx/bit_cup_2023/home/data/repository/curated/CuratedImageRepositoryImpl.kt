@@ -3,7 +3,7 @@ package com.xxmrk888ytxx.bit_cup_2023.home.data.repository.curated
 import com.xxmrk888ytxx.bit_cup_2023.home.data.api.model.ImageDto
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.curated.CuratedImagesLocalDataSource
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.curated.CuratedImagesRemoteDataSource
-import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.CuratedImageEntity
+import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.ImageEntity
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.CuratedImageLoadResult
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.repository.curated.CuratedImageRepository
@@ -14,7 +14,8 @@ class CuratedImageRepositoryImpl @Inject constructor(
     private val curatedImagesRemoteDataSource: CuratedImagesRemoteDataSource
 ): CuratedImageRepository {
     override suspend fun getCuratedImages(): CuratedImageLoadResult {
-        if(curatedImagesLocalDataSource.isHaveCuratedImages()) {
+        val curatedImagesFromCache = curatedImagesLocalDataSource.getCuratedImages()
+        if (curatedImagesFromCache.isNotEmpty()) {
             return CuratedImageLoadResult(
                 images = curatedImagesLocalDataSource.getCuratedImages().map { it.toImage() },
                 isFromCache = true
@@ -33,11 +34,11 @@ class CuratedImageRepositoryImpl @Inject constructor(
         )
     }
 
-    private fun CuratedImageEntity.toImage() : Image {
+    private fun ImageEntity.toImage(): Image {
         return Image(id, name, imageUrl)
     }
 
-    private fun ImageDto.toEntity() : CuratedImageEntity {
-        return CuratedImageEntity(id,imageName,imageResolutions.original)
+    private fun ImageDto.toEntity(): ImageEntity {
+        return ImageEntity(id, imageName, imageResolutions.original)
     }
 }

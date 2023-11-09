@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.xxmrk888ytxx.bit_cup_2023.app.data.AppDatabase
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.CategoryDao
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.CuratedImageDao
+import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.ImageDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,8 +28,13 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideCuratedImageDao(appDatabase: AppDatabase) : CuratedImageDao {
+    fun provideCuratedImageDao(appDatabase: AppDatabase): CuratedImageDao {
         return appDatabase.getCuratedImageDao()
+    }
+
+    @Provides
+    fun provideImageDao(appDatabase: AppDatabase): ImageDao {
+        return appDatabase.getImageDao()
     }
 
     companion object {

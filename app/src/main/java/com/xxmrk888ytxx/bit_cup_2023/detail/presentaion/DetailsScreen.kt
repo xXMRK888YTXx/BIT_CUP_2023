@@ -11,8 +11,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.xxmrk888ytxx.bit_cup_2023.R
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseStub
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.LoadingIndicator
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
 import com.xxmrk888ytxx.bit_cup_2023.detail.presentaion.model.DetailsScreenState
 
@@ -31,7 +35,10 @@ fun DetailsScreen(viewModel: DetailsViewModel) {
                 .padding(padding)
         ) {
             when (screenState) {
-                DetailsScreenState.ImageNotFound -> {}
+                DetailsScreenState.ImageNotFound -> ImageNotFoundStub {
+
+                }
+
                 is DetailsScreenState.Loaded -> {
                     AsyncImage(
                         model = (screenState as DetailsScreenState.Loaded).image.imageUrl,
@@ -44,9 +51,18 @@ fun DetailsScreen(viewModel: DetailsViewModel) {
                     )
                 }
 
-                DetailsScreenState.Loading -> {}
+                DetailsScreenState.Loading -> {
+                    LoadingIndicator()
+                }
             }
 
         }
     }
+}
+
+@Composable
+fun ImageNotFoundStub(
+    onExplore: () -> Unit,
+) {
+    BaseStub(textStub = stringResource(R.string.image_not_found), onExplore = onExplore)
 }

@@ -2,7 +2,9 @@ package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,14 +41,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.W400
 import androidx.compose.ui.text.font.FontWeight.Companion.W500
 import androidx.compose.ui.text.font.FontWeight.Companion.W700
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.ApplicationFont
@@ -150,9 +154,9 @@ fun ImageList(images: List<Image>) {
         columns = StaggeredGridCells.Fixed(2),
         modifier = Modifier.fillMaxSize()
     ) {
-        items(images, key = { it.id }) {
+        items(images, key = { it.id }) { image ->
             SubcomposeAsyncImage(
-                model = it.imageUrl,
+                model = image.imageUrl,
                 contentDescription = "",
                 modifier = Modifier
                     .padding(12.dp)
@@ -161,6 +165,31 @@ fun ImageList(images: List<Image>) {
                 loading = {
                     CircularProgressIndicator()
                 },
+                success = {
+                    SubcomposeAsyncImageContent()
+                    if (image.name.isNotEmpty()) {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.BottomCenter)
+                                .fillMaxWidth()
+                                .background(theme.imagePlaceholder),
+                            Alignment.Center
+                        ) {
+                            Text(
+                                text = image.name,
+                                modifier = Modifier.padding(8.dp),
+                                textAlign = TextAlign.Center,
+                                style = TextStyle(
+                                    fontFamily = ApplicationFont.mulish,
+                                    fontWeight = W400,
+                                    fontSize = 14.sp,
+                                    color = theme.imagePlaceholderText
+                                ),
+                                maxLines = 1,
+                            )
+                        }
+                    }
+                }
             )
         }
     }
@@ -204,7 +233,7 @@ fun CategoryList(
                     style = TextStyle(
                         fontFamily = ApplicationFont.mulish,
                         fontSize = 14.sp,
-                        fontWeight = FontWeight.W400,
+                        fontWeight = W400,
                         color = if (isSelected) theme.selectedCategoryTextColor
                         else theme.nonSelectedCategoryTextColor
                     )
@@ -222,7 +251,7 @@ private fun SearchBar(
     val textStyle = TextStyle(
         fontSize = 14.sp,
         fontFamily = ApplicationFont.mulish,
-        fontWeight = FontWeight.W400,
+        fontWeight = W400,
         color = theme.searchBarPlaceholder
     )
 

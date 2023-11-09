@@ -6,6 +6,7 @@ import com.xxmrk888ytxx.bit_cup_2023.app.data.AppDatabase
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.CategoryDao
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.CuratedImageDao
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.ImageDao
+import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.SearchImageDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,6 +36,11 @@ class DatabaseModule {
     @Provides
     fun provideImageDao(appDatabase: AppDatabase): ImageDao {
         return appDatabase.getImageDao()
+    }
+
+    @Provides
+    fun provideSearchImageDao(appDatabase: AppDatabase): SearchImageDao {
+        return appDatabase.getSearchImageDao()
     }
 
     companion object {

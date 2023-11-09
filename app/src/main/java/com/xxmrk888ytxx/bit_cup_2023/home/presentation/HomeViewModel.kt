@@ -104,8 +104,8 @@ class HomeViewModel @Inject constructor(
                 .onSuccess { curatedImagesLoadResult ->
                     images.update { curatedImagesLoadResult.images }
 
-                    if (curatedImagesLoadResult.isFromCache && !getInternetStateUseCase().first()) {
-                        _toastAction.tryEmit(R.string.no_internet_connection_data_has_been_loaded_from_cache)
+                    if (curatedImagesLoadResult.isFromCache) {
+                        onImagesLoadedFromCache()
                     }
                 }
                 .onFailure {
@@ -148,9 +148,12 @@ class HomeViewModel @Inject constructor(
         imageSearchLoadScope.launch(Dispatchers.IO) {
             isSearchImageInProcess.update { true }
             searchImageUseCase(query)
-                .onSuccess { searchedImages ->
+                .onSuccess { searchedImagesLocalResult ->
                     if (isActive) {
-                        images.update { searchedImages }
+                        images.update { searchedImagesLocalResult.images }
+                        if (searchedImagesLocalResult.isFromCache) {
+                            onImagesLoadedFromCache()
+                        }
                     }
                 }
                 .onFailure {
@@ -172,6 +175,12 @@ class HomeViewModel @Inject constructor(
     private fun onInternetError() {
         isInternetError.update { true }
         _toastAction.tryEmit(R.string.no_internet_connection)
+    }
+
+    private suspend fun onImagesLoadedFromCache() {
+        if (!getInternetStateUseCase().first()) {
+            _toastAction.tryEmit(R.string.no_internet_connection_data_has_been_loaded_from_cache)
+        }
     }
 
     override fun onCleared() {

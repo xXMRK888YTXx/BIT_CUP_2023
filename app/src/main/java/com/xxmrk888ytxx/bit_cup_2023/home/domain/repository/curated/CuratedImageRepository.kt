@@ -1,8 +1,7 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.domain.repository.curated
 
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.CuratedImageLoadResult
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
+import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.ImageLoadResult
 
 interface CuratedImageRepository {
-    suspend fun getCuratedImages() : CuratedImageLoadResult
+    suspend fun getCuratedImages(): ImageLoadResult
 }

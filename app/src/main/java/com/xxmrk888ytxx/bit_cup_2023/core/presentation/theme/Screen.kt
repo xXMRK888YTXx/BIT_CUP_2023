@@ -7,6 +7,7 @@ sealed class Screen(val route:String) {
 
     object Details : Screen("Details") {
         const val IMAGE_ID_NAVIGATION_ARGUMENT_KEY = "IMAGE_ID_NAVIGATION_ARGUMENT_KEY"
+        const val IMAGE_SOURCE_ARGUMENT_KEY = "IMAGE_SOURCE_ARGUMENT_KEY"
     }
 
     companion object {

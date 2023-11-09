@@ -8,6 +8,7 @@ import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseViewModel
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.NavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.Screen
+import com.xxmrk888ytxx.bit_cup_2023.detail.ImageSourceType
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Category
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase.GetCategoriesUseCase
@@ -189,7 +190,10 @@ class HomeViewModel @Inject constructor(
         sendNavigationAction(
             NavigationAction.Navigate(
                 screen = Screen.Details,
-                args = bundleOf(Screen.Details.IMAGE_ID_NAVIGATION_ARGUMENT_KEY to imageId)
+                args = bundleOf(
+                    Screen.Details.IMAGE_ID_NAVIGATION_ARGUMENT_KEY to imageId,
+                    Screen.Details.IMAGE_SOURCE_ARGUMENT_KEY to ImageSourceType.REMOTE.id,
+                )
             )
         )
     }

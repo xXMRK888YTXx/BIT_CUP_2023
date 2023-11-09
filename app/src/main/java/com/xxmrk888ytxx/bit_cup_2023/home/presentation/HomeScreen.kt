@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -25,7 +24,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -45,7 +43,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.W400
-import androidx.compose.ui.text.font.FontWeight.Companion.W500
 import androidx.compose.ui.text.font.FontWeight.Companion.W700
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -56,6 +53,8 @@ import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.xxmrk888ytxx.bit_cup_2023.R
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseStub
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.LoadingIndicator
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.ApplicationFont
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.lightColors
@@ -131,18 +130,6 @@ fun HomeScreen(
             }
         }
     }
-}
-
-@Composable
-fun LoadingIndicator() {
-    LinearProgressIndicator(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 24.dp)
-            .height(4.dp),
-        color = theme.loadingIndicator,
-        trackColor = theme.loadingIndicatorTrack,
-    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -348,40 +335,6 @@ fun InternetErrorStub(
         TextButton(onClick = onExplore) {
             Text(
                 text = stringResource(R.string.try_again),
-                style = TextStyle(
-                    color = theme.explore,
-                    fontSize = 18.sp,
-                    fontWeight = W700,
-                    fontFamily = ApplicationFont.mulish
-                )
-            )
-        }
-    }
-}
-
-@Composable
-fun BaseStub(
-    textStub: String,
-    onExplore: () -> Unit,
-) {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text(
-            text = textStub,
-            style = TextStyle(
-                fontFamily = ApplicationFont.mulish,
-                fontWeight = W500,
-                color = theme.stubText,
-                fontSize = 14.sp
-            )
-        )
-
-        TextButton(onClick = onExplore) {
-            Text(
-                text = stringResource(R.string.explore),
                 style = TextStyle(
                     color = theme.explore,
                     fontSize = 18.sp,

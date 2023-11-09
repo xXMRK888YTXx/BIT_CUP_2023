@@ -1,7 +1,7 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.presentation.model
 
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Category
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
+import com.xxmrk888ytxx.bit_cup_2023.domain.model.Image
+import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.Category
 
 data class HomeScreenState(
     val searchBarScreen: String = "",

@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.domain.models
+package com.xxmrk888ytxx.bit_cup_2023.domain.model
 
 data class Image(
     val id:Long,

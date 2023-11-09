@@ -60,8 +60,8 @@ import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigat
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.ApplicationFont
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.lightColors
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Category
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
+import com.xxmrk888ytxx.bit_cup_2023.domain.model.Image
+import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.Category
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

@@ -3,6 +3,7 @@ package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -117,19 +118,13 @@ fun HomeScreen(
                 }
 
                 screenState.images.isNotEmpty() -> ImageList(
-                    screenState.images
+                    images = screenState.images,
+                    onDetailsScreen = { imageId ->
+                        homeViewModel.onOpenNavigationAction(imageId)
+                    }
                 )
 
-                else -> ImageNotFoundStub {
-                    homeViewModel.onSearchTextChanged("")
-                    homeViewModel.loadCuratedImages()
-                }
-            }
-
-            if (screenState.images.isNotEmpty()) {
-                ImageList(screenState.images)
-            } else if (!screenState.isLoading) {
-                ImageNotFoundStub {
+                !screenState.isLoading -> ImageNotFoundStub {
                     homeViewModel.onSearchTextChanged("")
                     homeViewModel.loadCuratedImages()
                 }
@@ -152,7 +147,10 @@ fun LoadingIndicator() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ImageList(images: List<Image>) {
+fun ImageList(
+    images: List<Image>,
+    onDetailsScreen: (Long) -> Unit,
+) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
         modifier = Modifier.fillMaxSize()
@@ -164,7 +162,10 @@ fun ImageList(images: List<Image>) {
                 modifier = Modifier
                     .padding(12.dp)
                     .clip(RoundedCornerShape(20.dp))
-                    .animateItemPlacement(),
+                    .animateItemPlacement()
+                    .clickable {
+                        onDetailsScreen(image.id)
+                    },
                 loading = {
                     CircularProgressIndicator()
                 },

@@ -2,6 +2,7 @@ package com.xxmrk888ytxx.bit_cup_2023.app.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -25,6 +26,16 @@ class MainActivity : ComponentActivity() {
 
                 composable(Screen.Home.route) {
                     HomeScreen(navController = navController)
+                }
+
+                composable(Screen.Details.route) {
+                    val imageId = remember(it) {
+                        navController
+                            .getBackStackEntry(Screen.Details.route)
+                            .savedStateHandle
+                            .get<Bundle>(Screen.ARGUMENT_BUNDLE_KEY)
+                            ?.getLong(Screen.Details.IMAGE_ID_NAVIGATION_ARGUMENT_KEY)
+                    } ?: return@composable
                 }
             }
         }

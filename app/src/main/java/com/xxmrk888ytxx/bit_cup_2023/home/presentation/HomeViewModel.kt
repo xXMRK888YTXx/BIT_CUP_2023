@@ -2,9 +2,12 @@
 
 package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 
+import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseViewModel
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.NavigationAction
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.Screen
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Category
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.models.Image
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase.GetCategoriesUseCase
@@ -165,7 +168,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-
     private fun collectImagesUpdates() {
         viewModelScope.launch(Dispatchers.Default) {
             images.collect { isInternetError.update { false } }
@@ -181,6 +183,15 @@ class HomeViewModel @Inject constructor(
         if (!getInternetStateUseCase().first()) {
             _toastAction.tryEmit(R.string.no_internet_connection_data_has_been_loaded_from_cache)
         }
+    }
+
+    fun onOpenNavigationAction(imageId: Long) {
+        sendNavigationAction(
+            NavigationAction.Navigate(
+                screen = Screen.Details,
+                args = bundleOf(Screen.Details.IMAGE_ID_NAVIGATION_ARGUMENT_KEY to imageId)
+            )
+        )
     }
 
     override fun onCleared() {

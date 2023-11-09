@@ -21,6 +21,12 @@ data class Theme(
     val detailsScreenTopbarText: Color,
     val detailsScreenTopbarNavigationButton: Color,
     val detailsScreenTopbarNavigationButtonBackground: Color,
+    val downloadIconBackground: Color,
+    val downloadIcon: Color,
+    val downloadWidgetText: Color,
+    val bottomBarButtonsBackground: Color,
+    val bookmarkSelectedColor: Color,
+    val bookmarkNoSelectedColor: Color,
 )
 
 val lightTheme = Theme(
@@ -41,7 +47,13 @@ val lightTheme = Theme(
     imagePlaceholderText = lightColors.white,
     detailsScreenTopbarText = Color(0xFF333333),
     detailsScreenTopbarNavigationButton = lightColors.black,
-    detailsScreenTopbarNavigationButtonBackground = lightColors.gray
+    detailsScreenTopbarNavigationButtonBackground = lightColors.gray,
+    downloadIconBackground = lightColors.red,
+    downloadIcon = lightColors.white,
+    downloadWidgetText = lightColors.black,
+    bottomBarButtonsBackground = lightColors.gray,
+    bookmarkSelectedColor = lightColors.red,
+    bookmarkNoSelectedColor = lightColors.black
 )
 
 val darkTheme = Theme(
@@ -62,5 +74,11 @@ val darkTheme = Theme(
     imagePlaceholderText = lightColors.white,
     detailsScreenTopbarText = darkColors.white,
     detailsScreenTopbarNavigationButton = darkColors.white,
-    detailsScreenTopbarNavigationButtonBackground = darkColors.gray
+    detailsScreenTopbarNavigationButtonBackground = darkColors.gray,
+    downloadIconBackground = darkColors.red,
+    downloadIcon = darkColors.white,
+    downloadWidgetText = darkColors.white,
+    bottomBarButtonsBackground = darkColors.gray,
+    bookmarkSelectedColor = darkColors.red,
+    bookmarkNoSelectedColor = darkColors.white
 )

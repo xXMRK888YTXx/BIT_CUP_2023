@@ -10,5 +10,6 @@ object ApplicationFont {
         Font(R.font.mulish_regular, weight = FontWeight.W400),
         Font(R.font.mulish_medium, weight = FontWeight.W500),
         Font(R.font.mulish_bold, weight = FontWeight.W700),
+        Font(R.font.mulish_semibold, weight = FontWeight.W600)
     )
 }

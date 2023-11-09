@@ -1,8 +1,12 @@
 package com.xxmrk888ytxx.bit_cup_2023.detail.presentaion
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +20,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -46,7 +51,14 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = theme.background,
-        topBar = { Topbar(screenState) { detailsViewModel.navigateUp() } }
+        topBar = { Topbar(screenState) { detailsViewModel.navigateUp() } },
+        bottomBar = {
+            BottomBar(
+                isImageBookmarked = false,
+                onDownload = {},
+                onBookmarkStateChange = {}
+            )
+        }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -74,6 +86,86 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
                     LoadingIndicator()
                 }
             }
+
+        }
+    }
+}
+
+@Composable
+fun BottomBar(
+    isImageBookmarked: Boolean,
+    onDownload: () -> Unit,
+    onBookmarkStateChange: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = 24.dp,
+                end = 24.dp,
+                bottom = 24.dp
+            ),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(
+            modifier = Modifier
+                .clip(RoundedCornerShape(100))
+                .background(theme.bottomBarButtonsBackground)
+                .clickable(onClick = onDownload),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(
+                onClick = onDownload,
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(100))
+                    .background(theme.downloadIconBackground),
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.download_icon),
+                    contentDescription = null,
+                    modifier = Modifier.size(16.dp),
+                    tint = theme.downloadIcon
+                )
+            }
+
+            Text(
+                text = stringResource(R.string.download),
+                modifier = Modifier.padding(
+                    start = 16.dp,
+                    bottom = 14.dp,
+                    top = 15.dp,
+                    end = 36.dp
+                ),
+                style = TextStyle(
+                    color = theme.downloadWidgetText,
+                    fontFamily = ApplicationFont.mulish,
+                    fontWeight = FontWeight.W600,
+                    fontSize = 14.sp
+                )
+            )
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        IconButton(
+            onClick = onBookmarkStateChange,
+            modifier = Modifier
+                .size(48.dp)
+                .clip(RoundedCornerShape(100))
+                .background(theme.bottomBarButtonsBackground)
+        ) {
+            Icon(
+                painter = if (isImageBookmarked) painterResource(id = R.drawable.bookmark_selected)
+                else painterResource(id = R.drawable.bookmark_no_selected),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(24.dp),
+                tint = when (isImageBookmarked) {
+                    true -> theme.bookmarkSelectedColor
+                    false -> theme.bookmarkNoSelectedColor
+                }
+            )
 
         }
     }

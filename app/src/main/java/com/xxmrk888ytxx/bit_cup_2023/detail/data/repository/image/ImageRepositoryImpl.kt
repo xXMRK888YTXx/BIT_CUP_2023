@@ -14,11 +14,11 @@ class ImageRepositoryImpl @Inject constructor(
     private val remoteImageDataSource: RemoteImageDataSource,
 ) : ImageRepository {
     override suspend fun loadImageFromRemote(imageId: Long): Image {
-        return localImageDataSource.getImage(imageId)?.toImage() ?: throw ImageNotFoundException()
+        return remoteImageDataSource.loadImage(imageId).toImage()
     }
 
     override suspend fun loadImageFromCache(imageId: Long): Image {
-        return remoteImageDataSource.loadImage(imageId).toImage()
+        return localImageDataSource.getImage(imageId)?.toImage() ?: throw ImageNotFoundException()
     }
 
     private fun ImageDto.toImage(): Image {

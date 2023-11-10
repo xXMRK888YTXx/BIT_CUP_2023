@@ -190,7 +190,7 @@ fun Topbar(
                     text = screenState.image.author,
                     maxLines = 1,
                     style = TextStyle(
-                        color = theme.detailsScreenTopbarText,
+                        color = theme.topbarText,
                         fontFamily = ApplicationFont.mulish,
                         fontWeight = FontWeight.W700,
                         fontSize = 18.sp

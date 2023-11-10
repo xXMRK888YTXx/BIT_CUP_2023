@@ -2,10 +2,7 @@ package com.xxmrk888ytxx.bit_cup_2023.home.presentation
 
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,15 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -45,21 +38,18 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.W400
 import androidx.compose.ui.text.font.FontWeight.Companion.W700
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.SubcomposeAsyncImage
-import coil.compose.SubcomposeAsyncImageContent
 import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseStub
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.ImageList
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.LoadingIndicator
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.ApplicationFont
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.lightColors
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
-import com.xxmrk888ytxx.bit_cup_2023.domain.model.Image
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.Category
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -120,7 +110,9 @@ fun HomeScreen(
                     images = screenState.images,
                     onDetailsScreen = { imageId ->
                         homeViewModel.onOpenNavigationAction(imageId)
-                    }
+                    },
+                    onPlaceholderText = { it.name },
+                    placeholderMaxLines = 1
                 )
 
                 !screenState.isLoading -> ImageNotFoundStub {
@@ -132,65 +124,6 @@ fun HomeScreen(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun ImageList(
-    images: List<Image>,
-    onDetailsScreen: (Long) -> Unit,
-) {
-    LazyVerticalStaggeredGrid(
-        columns = StaggeredGridCells.Fixed(2),
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                start = 12.dp,
-                end = 12.dp,
-                top = 12.dp
-            )
-    ) {
-        items(images, key = { it.id }) { image ->
-            SubcomposeAsyncImage(
-                model = image.imageUrl,
-                contentDescription = "",
-                modifier = Modifier
-                    .padding(12.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    .animateItemPlacement()
-                    .clickable {
-                        onDetailsScreen(image.id)
-                    },
-                loading = {
-                    CircularProgressIndicator()
-                },
-                success = {
-                    SubcomposeAsyncImageContent()
-                    if (image.name.isNotEmpty()) {
-                        Box(
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .fillMaxWidth()
-                                .background(theme.imagePlaceholder),
-                            Alignment.Center
-                        ) {
-                            Text(
-                                text = image.name,
-                                modifier = Modifier.padding(8.dp),
-                                textAlign = TextAlign.Center,
-                                style = TextStyle(
-                                    fontFamily = ApplicationFont.mulish,
-                                    fontWeight = W400,
-                                    fontSize = 14.sp,
-                                    color = theme.imagePlaceholderText
-                                ),
-                                maxLines = 1,
-                            )
-                        }
-                    }
-                }
-            )
-        }
-    }
-}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

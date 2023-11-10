@@ -14,4 +14,6 @@
     <string name="image_successfully_downloaded">Image successfully downloaded</string>
     <string name="an_error_occurred_while_uploading_the_image">An error occurred while uploading the image</string>
     <string name="no_connection_download_image_is_impossible">No connection. Download image is impossible</string>
+    <string name="you_haven_t_saved_anything_yet">You haven\'t saved anything yet</string>
+    <string name="bookmark">Bookmark</string>
 </resources>

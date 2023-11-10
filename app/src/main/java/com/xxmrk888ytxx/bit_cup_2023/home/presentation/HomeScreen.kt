@@ -15,7 +15,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -143,22 +143,17 @@ fun ImageList(
         modifier = Modifier
             .fillMaxSize()
             .padding(
-                start = 24.dp,
-                end = 24.dp,
-                top = 24.dp
+                start = 12.dp,
+                end = 12.dp,
+                top = 12.dp
             )
     ) {
-        itemsIndexed(images, key = { _, it -> it.id }) { index, image ->
+        items(images, key = { it.id }) { image ->
             SubcomposeAsyncImage(
                 model = image.imageUrl,
                 contentDescription = "",
                 modifier = Modifier
-                    .padding(
-                        start = if (index % 2 == 0) 0.dp else 12.dp,
-                        end = if (index % 2 != 0) 0.dp else 12.dp,
-                        bottom = 12.dp,
-                        top = 12.dp
-                    )
+                    .padding(12.dp)
                     .clip(RoundedCornerShape(20.dp))
                     .animateItemPlacement()
                     .clickable {

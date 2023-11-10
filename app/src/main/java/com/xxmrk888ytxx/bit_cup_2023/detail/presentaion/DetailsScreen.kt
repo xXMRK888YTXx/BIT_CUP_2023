@@ -58,7 +58,7 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
             if (screenState is DetailsScreenState.Loaded) {
                 BottomBar(
                     isImageBookmarked = isImageBookmarked,
-                    onDownload = {},
+                    onDownload = { detailsViewModel.downloadImage() },
                     onBookmarkStateChange = {
                         detailsViewModel.onChangeBookmarkState(isImageBookmarked)
                     }

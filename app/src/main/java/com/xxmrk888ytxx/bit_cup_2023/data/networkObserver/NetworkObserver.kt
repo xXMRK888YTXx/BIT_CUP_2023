@@ -34,12 +34,12 @@ class NetworkObserver @Inject constructor(
         updateState()
     }
 
-    fun onNetworkLost(networkId: Int) {
+    private fun onNetworkLost(networkId: Int) {
         activeConnections.remove(networkId)
         updateState()
     }
 
-    fun onNetworkUnavailable() {
+    private fun onNetworkUnavailable() {
         activeConnections.clear()
         updateState()
     }

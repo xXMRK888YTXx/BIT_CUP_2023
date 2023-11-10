@@ -7,4 +7,9 @@
     <string name="image_not_found">Image not found</string>
     <string name="loading">Loading…</string>
     <string name="download">Download</string>
+    <string name="downloading_image">Downloading image…</string>
+    <string name="image_downloaded">Image downloaded</string>
+    <string name="image_successfully_downloaded">Image successfully downloaded</string>
+    <string name="an_error_occurred_while_uploading_the_image">An error occurred while uploading the image</string>
+    <string name="no_connection_download_image_is_impossible">No connection. Download image is impossible</string>
 </resources>

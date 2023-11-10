@@ -15,7 +15,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -53,6 +53,7 @@ import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.xxmrk888ytxx.bit_cup_2023.R
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.ActivateBottomBar
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseStub
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.LoadingIndicator
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
@@ -75,6 +76,8 @@ fun HomeScreen(
         navController = navController,
         navigationAction = homeViewModel.navigationAction
     )
+
+    ActivateBottomBar()
 
     val context = LocalContext.current
 
@@ -140,14 +143,25 @@ fun ImageList(
 ) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(
+                start = 24.dp,
+                end = 24.dp,
+                top = 24.dp
+            )
     ) {
-        items(images, key = { it.id }) { image ->
+        itemsIndexed(images, key = { _, it -> it.id }) { index, image ->
             SubcomposeAsyncImage(
                 model = image.imageUrl,
                 contentDescription = "",
                 modifier = Modifier
-                    .padding(12.dp)
+                    .padding(
+                        start = if (index % 2 == 0) 0.dp else 12.dp,
+                        end = if (index % 2 != 0) 0.dp else 12.dp,
+                        bottom = 12.dp,
+                        top = 12.dp
+                    )
                     .clip(RoundedCornerShape(20.dp))
                     .animateItemPlacement()
                     .clickable {

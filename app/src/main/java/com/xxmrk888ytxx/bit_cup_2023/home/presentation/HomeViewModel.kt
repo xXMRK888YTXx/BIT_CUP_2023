@@ -186,7 +186,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun onOpenNavigationAction(imageId: Long) {
+    fun onDetailsScreen(imageId: Long) {
         sendNavigationAction(
             NavigationAction.Navigate(
                 screen = Screen.Details,

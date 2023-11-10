@@ -16,6 +16,10 @@ interface BookmarkImageDao {
     @Transaction
     suspend fun getBookmarkedImages(): List<BookmarkImage>
 
+    @Query("SELECT * FROM BookmarkImagesTable WHERE imageId = :imageId")
+    @Transaction
+    suspend fun getBookmarkedImage(imageId: Long): BookmarkImage?
+
     @Query("SELECT COUNT(*) > 0 FROM BookmarkImagesTable WHERE imageId = :imageId")
     fun isImageBookmarked(imageId: Long): Flow<Boolean>
 

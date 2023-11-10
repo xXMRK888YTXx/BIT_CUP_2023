@@ -109,7 +109,7 @@ fun HomeScreen(
                 screenState.images.isNotEmpty() -> ImageList(
                     images = screenState.images,
                     onDetailsScreen = { imageId ->
-                        homeViewModel.onOpenNavigationAction(imageId)
+                        homeViewModel.onDetailsScreen(imageId)
                     },
                     onPlaceholderText = { it.name },
                     placeholderMaxLines = 1

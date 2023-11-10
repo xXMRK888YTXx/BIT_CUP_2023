@@ -74,7 +74,7 @@ fun BookmarkScreen(
             if (images.isNotEmpty()) {
                 ImageList(
                     images = images,
-                    onDetailsScreen = {},
+                    onDetailsScreen = { bookmarkViewModel.onDetailsScreen(it) },
                     onPlaceholderText = { "${it.name}\n${it.author}" },
                     placeholderMaxLines = 2
                 )

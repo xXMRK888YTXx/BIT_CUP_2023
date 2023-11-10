@@ -10,6 +10,8 @@ sealed class Screen(val route:String) {
         const val IMAGE_SOURCE_ARGUMENT_KEY = "IMAGE_SOURCE_ARGUMENT_KEY"
     }
 
+    object Bookmark : Screen("Bookmark")
+
     companion object {
         const val ARGUMENT_BUNDLE_KEY = "ARGUMENT_BUNDLE_KEY"
     }

@@ -16,6 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.xxmrk888ytxx.bit_cup_2023.bookmark.BookmarkScreen
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.ApplicationBottomBar
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BottomBarType
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.Screen
@@ -54,7 +55,7 @@ class MainActivity : ComponentActivity() {
                         ApplicationBottomBar(
                             onHome = { activityViewModel.changeBottomBarScreen(BottomBarType.HOME) },
                             onDetails = { activityViewModel.changeBottomBarScreen(BottomBarType.BOOKMARK) },
-                            currentBottomBarType = selectedBottomBarType
+                            currentBottomBarType = selectedBottomBarType,
                         )
                     }
                 }
@@ -94,6 +95,10 @@ class MainActivity : ComponentActivity() {
                         val viewModel = viewModel { detailsViewModel.create(imageId, imageSource) }
 
                         DetailsScreen(viewModel, navController)
+                    }
+
+                    composable(Screen.Bookmark.route) {
+                        BookmarkScreen(navController = navController)
                     }
                 }
             }

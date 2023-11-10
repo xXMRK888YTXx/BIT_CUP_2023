@@ -34,7 +34,7 @@ class ActivityViewModel @Inject constructor() : ViewModel() {
     private val destinationListener =
         NavController.OnDestinationChangedListener { _, destination, _ ->
             when (destination.route) {
-                Screen.Home.route -> {
+                Screen.Home.route, Screen.Bookmark.route -> {
                     _isNeedShowBottomBar.update { true }
                 }
 
@@ -44,6 +44,16 @@ class ActivityViewModel @Inject constructor() : ViewModel() {
 
     fun changeBottomBarScreen(bottomBarType: BottomBarType) {
         _selectedBottomScreen.update { bottomBarType }
+
+        val route = when (bottomBarType) {
+            BottomBarType.HOME -> Screen.Home.route
+            BottomBarType.BOOKMARK -> Screen.Bookmark.route
+        }
+
+        if (navController?.currentDestination?.route == route) return
+
+        navController?.popBackStack()
+        navController?.navigate(route)
     }
 
     fun setupDestinationListener() {

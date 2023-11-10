@@ -27,6 +27,7 @@ data class Theme(
     val bottomBarButtonsBackground: Color,
     val bookmarkSelectedColor: Color,
     val bookmarkNoSelectedColor: Color,
+    val nonSelectedBottomBarAction: Color,
 )
 
 val lightTheme = Theme(
@@ -53,7 +54,8 @@ val lightTheme = Theme(
     downloadWidgetText = lightColors.black,
     bottomBarButtonsBackground = lightColors.gray,
     bookmarkSelectedColor = lightColors.red,
-    bookmarkNoSelectedColor = lightColors.black
+    bookmarkNoSelectedColor = lightColors.black,
+    nonSelectedBottomBarAction = lightColors.darkGray
 )
 
 val darkTheme = Theme(
@@ -80,5 +82,6 @@ val darkTheme = Theme(
     downloadWidgetText = darkColors.white,
     bottomBarButtonsBackground = darkColors.gray,
     bookmarkSelectedColor = darkColors.red,
-    bookmarkNoSelectedColor = darkColors.white
+    bookmarkNoSelectedColor = darkColors.white,
+    nonSelectedBottomBarAction = darkColors.darkGray
 )

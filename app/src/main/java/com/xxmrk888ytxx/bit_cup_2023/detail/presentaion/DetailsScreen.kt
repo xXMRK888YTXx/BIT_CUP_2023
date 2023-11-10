@@ -98,7 +98,7 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
 }
 
 @Composable
-fun BottomBar(
+private fun BottomBar(
     isImageBookmarked: Boolean,
     onDownload: () -> Unit,
     onBookmarkStateChange: () -> Unit,

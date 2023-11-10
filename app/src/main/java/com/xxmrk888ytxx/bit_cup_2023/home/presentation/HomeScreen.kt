@@ -53,7 +53,6 @@ import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.xxmrk888ytxx.bit_cup_2023.R
-import com.xxmrk888ytxx.bit_cup_2023.core.presentation.ActivateBottomBar
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseStub
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.LoadingIndicator
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
@@ -76,8 +75,6 @@ fun HomeScreen(
         navController = navController,
         navigationAction = homeViewModel.navigationAction
     )
-
-    ActivateBottomBar()
 
     val context = LocalContext.current
 

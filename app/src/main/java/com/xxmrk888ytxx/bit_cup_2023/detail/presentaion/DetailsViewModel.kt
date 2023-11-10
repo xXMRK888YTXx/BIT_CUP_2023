@@ -3,6 +3,8 @@ package com.xxmrk888ytxx.bit_cup_2023.detail.presentaion
 import androidx.lifecycle.viewModelScope
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseViewModel
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.NavigationAction
+import com.xxmrk888ytxx.bit_cup_2023.detail.domain.useCase.ChangeBookmarkStateUseCase
+import com.xxmrk888ytxx.bit_cup_2023.detail.domain.useCase.GetBookmarkStateUseCase
 import com.xxmrk888ytxx.bit_cup_2023.detail.domain.useCase.GetImageUseCase
 import com.xxmrk888ytxx.bit_cup_2023.detail.presentaion.model.DetailsScreenState
 import dagger.assisted.Assisted
@@ -18,13 +20,23 @@ class DetailsViewModel @AssistedInject constructor(
     @Assisted private val imageId: Long,
     @Assisted private val imageSourceType: ImageSourceType,
     private val getImageUseCase: GetImageUseCase,
+    private val changeBookmarkStateUseCase: ChangeBookmarkStateUseCase,
+    getBookmarkStateUseCase: GetBookmarkStateUseCase,
 ) : BaseViewModel() {
 
     private val _screenState = MutableStateFlow<DetailsScreenState>(DetailsScreenState.Loading)
     val screenState = _screenState.asStateFlow()
 
+    val bookmarkState = getBookmarkStateUseCase(imageId)
+
     fun navigateUp() {
         sendNavigationAction(NavigationAction.NavigateUp)
+    }
+
+    fun onChangeBookmarkState(isImageBookmarked: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            changeBookmarkStateUseCase(imageId, !isImageBookmarked)
+        }
     }
 
     init {

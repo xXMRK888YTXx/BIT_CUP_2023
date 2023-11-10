@@ -1,13 +1,14 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity
+package com.xxmrk888ytxx.bit_cup_2023.data.database.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
+import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.xxmrk888ytxx.bit_cup_2023.data.database.entity.ImageEntity
 
 @Entity(
-    tableName = "CuratedImageTable",
+    tableName = "BookmarkImagesTable",
+    indices = [Index("imageId", unique = true)],
     foreignKeys = [
         ForeignKey(
             entity = ImageEntity::class,
@@ -18,6 +19,7 @@ import com.xxmrk888ytxx.bit_cup_2023.data.database.entity.ImageEntity
         )
     ]
 )
-data class CuratedImageEntity(
-    @PrimaryKey val imageId: Long,
+data class BookmarkImageEntity(
+    @PrimaryKey(autoGenerate = true) val bookmarkId: Int,
+    val imageId: Long,
 )

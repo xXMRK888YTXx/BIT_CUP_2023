@@ -2,11 +2,11 @@ package com.xxmrk888ytxx.bit_cup_2023.detail.data.repository.image
 
 import com.xxmrk888ytxx.bit_cup_2023.data.api.model.ImageDto
 import com.xxmrk888ytxx.bit_cup_2023.data.dataSource.LocalImageDataSource
+import com.xxmrk888ytxx.bit_cup_2023.data.database.entity.ImageEntity
 import com.xxmrk888ytxx.bit_cup_2023.detail.data.dataSource.RemoteImageDataSource
 import com.xxmrk888ytxx.bit_cup_2023.detail.domain.exception.ImageNotFoundException
 import com.xxmrk888ytxx.bit_cup_2023.detail.domain.repository.image.ImageRepository
 import com.xxmrk888ytxx.bit_cup_2023.domain.model.Image
-import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.ImageEntity
 import javax.inject.Inject
 
 class ImageRepositoryImpl @Inject constructor(

@@ -3,9 +3,10 @@ package com.xxmrk888ytxx.bit_cup_2023.app.data.di
 import android.content.Context
 import androidx.room.Room
 import com.xxmrk888ytxx.bit_cup_2023.app.data.AppDatabase
+import com.xxmrk888ytxx.bit_cup_2023.data.database.dao.BookmarkImageDao
+import com.xxmrk888ytxx.bit_cup_2023.data.database.dao.ImageDao
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.CategoryDao
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.CuratedImageDao
-import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.ImageDao
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.SearchImageDao
 import dagger.Module
 import dagger.Provides
@@ -41,6 +42,11 @@ class DatabaseModule {
     @Provides
     fun provideSearchImageDao(appDatabase: AppDatabase): SearchImageDao {
         return appDatabase.getSearchImageDao()
+    }
+
+    @Provides
+    fun provideBookmarkImage(appDatabase: AppDatabase): BookmarkImageDao {
+        return appDatabase.bookmarkImageDao()
     }
 
     companion object {

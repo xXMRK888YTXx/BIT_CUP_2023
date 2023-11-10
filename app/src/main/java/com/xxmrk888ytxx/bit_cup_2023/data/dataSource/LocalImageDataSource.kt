@@ -1,7 +1,7 @@
 package com.xxmrk888ytxx.bit_cup_2023.data.dataSource
 
-import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.ImageDao
-import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.ImageEntity
+import com.xxmrk888ytxx.bit_cup_2023.data.database.dao.ImageDao
+import com.xxmrk888ytxx.bit_cup_2023.data.database.entity.ImageEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

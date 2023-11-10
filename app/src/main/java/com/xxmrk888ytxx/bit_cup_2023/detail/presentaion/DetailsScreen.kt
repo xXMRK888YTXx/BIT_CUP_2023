@@ -44,6 +44,8 @@ import com.xxmrk888ytxx.bit_cup_2023.detail.presentaion.model.DetailsScreenState
 fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavController) {
 
     val screenState by detailsViewModel.screenState.collectAsState()
+    val isImageBookmarked by detailsViewModel.bookmarkState.collectAsState(initial = false)
+
     CollectNavigationAction(
         navController = navController,
         navigationAction = detailsViewModel.navigationAction
@@ -55,9 +57,11 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
         bottomBar = {
             if (screenState is DetailsScreenState.Loaded) {
                 BottomBar(
-                    isImageBookmarked = false,
+                    isImageBookmarked = isImageBookmarked,
                     onDownload = {},
-                    onBookmarkStateChange = {}
+                    onBookmarkStateChange = {
+                        detailsViewModel.onChangeBookmarkState(isImageBookmarked)
+                    }
                 )
             }
         }

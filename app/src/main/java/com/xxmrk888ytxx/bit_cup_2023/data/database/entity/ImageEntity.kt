@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity
+package com.xxmrk888ytxx.bit_cup_2023.data.database.entity
 
 import androidx.room.Entity
 import androidx.room.Index

@@ -5,6 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.xxmrk888ytxx.bit_cup_2023.data.database.entity.ImageEntity
 
 @Entity(
     tableName = "SearchImageTable",

@@ -1,9 +1,9 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.curated
 
 import com.xxmrk888ytxx.bit_cup_2023.data.dataSource.LocalImageDataSource
+import com.xxmrk888ytxx.bit_cup_2023.data.database.entity.ImageEntity
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.dao.CuratedImageDao
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.CuratedImageEntity
-import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.ImageEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -93,4 +93,7 @@ dependencies {
 
     // serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
+    //System Ui controller
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.29.2-rc")
 }

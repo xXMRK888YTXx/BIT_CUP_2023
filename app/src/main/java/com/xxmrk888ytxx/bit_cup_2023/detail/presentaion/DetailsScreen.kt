@@ -47,6 +47,7 @@ import coil.compose.AsyncImage
 import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseStub
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.LoadingIndicator
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.SetupNavigationAndStatusBarColor
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.ApplicationFont
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
@@ -63,6 +64,7 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
         navController = navController,
         navigationAction = detailsViewModel.navigationAction
     )
+    SetupNavigationAndStatusBarColor(color = theme.background)
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = theme.background,

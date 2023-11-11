@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.xxmrk888ytxx.bit_cup_2023.R
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.SetupNavigationAndStatusBarColor
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
 
@@ -32,10 +33,12 @@ fun SplashScreen(
         navigationAction = splashScreenView.navigationAction
     )
 
+    SetupNavigationAndStatusBarColor(color = theme.splashScreenBackground)
+
     val isAnimationIsProgress by splashScreenView.isAnimationInProgress.collectAsState()
 
     val imageAlpha by animateFloatAsState(
-        targetValue = if(isAnimationIsProgress) 1f else 0f,
+        targetValue = if (isAnimationIsProgress) 1f else 0f,
         label = "",
         animationSpec = tween(1000),
         finishedListener = { splashScreenView.onAnimationFinished() }

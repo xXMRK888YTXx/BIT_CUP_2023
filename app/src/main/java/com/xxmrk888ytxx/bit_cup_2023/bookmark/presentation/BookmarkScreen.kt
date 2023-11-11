@@ -22,6 +22,7 @@ import com.xxmrk888ytxx.bit_cup_2023.R
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.BaseStub
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.ImageList
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.LoadingIndicator
+import com.xxmrk888ytxx.bit_cup_2023.core.presentation.SetupNavigationAndStatusBarColor
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigationAction
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.ApplicationFont
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
@@ -36,6 +37,8 @@ fun BookmarkScreen(
         navController = navController,
         navigationAction = bookmarkViewModel.navigationAction
     )
+
+    SetupNavigationAndStatusBarColor(color = theme.background)
 
     val isLoading by bookmarkViewModel.isLoading.collectAsState()
     val images by bookmarkViewModel.bookmarkImages.collectAsState()

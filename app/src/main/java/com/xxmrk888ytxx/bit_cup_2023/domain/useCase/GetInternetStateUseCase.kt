@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase
+package com.xxmrk888ytxx.bit_cup_2023.domain.useCase
 
 import com.xxmrk888ytxx.bit_cup_2023.domain.repository.network.NetworkRepository
 import kotlinx.coroutines.flow.Flow

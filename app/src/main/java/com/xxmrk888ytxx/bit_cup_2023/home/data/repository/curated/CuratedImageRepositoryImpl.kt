@@ -3,10 +3,10 @@ package com.xxmrk888ytxx.bit_cup_2023.home.data.repository.curated
 import com.xxmrk888ytxx.bit_cup_2023.data.api.model.ImageDto
 import com.xxmrk888ytxx.bit_cup_2023.data.database.entity.ImageEntity
 import com.xxmrk888ytxx.bit_cup_2023.domain.model.Image
+import com.xxmrk888ytxx.bit_cup_2023.domain.repository.curated.CuratedImageRepository
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.curated.CuratedImagesLocalDataSource
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.curated.CuratedImagesRemoteDataSource
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.ImageLoadResult
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.repository.curated.CuratedImageRepository
 import javax.inject.Inject
 
 class CuratedImageRepositoryImpl @Inject constructor(

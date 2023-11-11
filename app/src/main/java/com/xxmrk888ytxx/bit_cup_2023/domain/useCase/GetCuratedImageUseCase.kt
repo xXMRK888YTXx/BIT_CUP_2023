@@ -1,7 +1,7 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase
+package com.xxmrk888ytxx.bit_cup_2023.domain.useCase
 
+import com.xxmrk888ytxx.bit_cup_2023.domain.repository.curated.CuratedImageRepository
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.ImageLoadResult
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.repository.curated.CuratedImageRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

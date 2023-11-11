@@ -1,4 +1,4 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.domain.repository.curated
+package com.xxmrk888ytxx.bit_cup_2023.domain.repository.curated
 
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.ImageLoadResult
 

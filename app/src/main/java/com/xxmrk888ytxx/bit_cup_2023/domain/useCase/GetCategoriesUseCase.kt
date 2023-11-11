@@ -1,7 +1,7 @@
-package com.xxmrk888ytxx.bit_cup_2023.home.domain.useCase
+package com.xxmrk888ytxx.bit_cup_2023.domain.useCase
 
+import com.xxmrk888ytxx.bit_cup_2023.domain.repository.category.CategoryRepository
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.Category
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.repository.category.CategoryRepository
 import javax.inject.Inject
 
 class GetCategoriesUseCase @Inject constructor(

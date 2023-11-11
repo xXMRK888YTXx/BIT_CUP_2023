@@ -1,11 +1,11 @@
 package com.xxmrk888ytxx.bit_cup_2023.home.data.repository.category
 
 import com.xxmrk888ytxx.bit_cup_2023.data.api.model.CategoryDto
+import com.xxmrk888ytxx.bit_cup_2023.domain.repository.category.CategoryRepository
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.category.CategoryLocalDataSource
 import com.xxmrk888ytxx.bit_cup_2023.home.data.dataSource.category.CategoryRemoteDataSource
 import com.xxmrk888ytxx.bit_cup_2023.home.data.database.entity.CategoryEntity
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.Category
-import com.xxmrk888ytxx.bit_cup_2023.home.domain.repository.category.CategoryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

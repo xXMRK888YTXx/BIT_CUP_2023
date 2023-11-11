@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="search">Search</string>
-    <string name="explore">Explore</string>
-    <string name="no_internet_connection">No internet connection</string>
-    <string name="no_internet_connection_data_has_been_loaded_from_cache">No internet connection. Data has been loaded from cache.</string>
-    <string name="image_not_found">Image not found</string>
-    <string name="loading">Loading…</string>
-    <string name="download">Download</string>
-    <string name="downloading_image">Downloading image…</string>
-    <string name="image_downloaded">Image downloaded</string>
-    <string name="image_successfully_downloaded">Image successfully downloaded</string>
-    <string name="an_error_occurred_while_uploading_the_image">An error occurred while uploading the image</string>
-    <string name="no_connection_download_image_is_impossible">No connection. Download image is impossible</string>
-    <string name="you_haven_t_saved_anything_yet">You haven\'t saved anything yet</string>
-    <string name="bookmark">Bookmark</string>
+    <string name="search">Поиск</string>
+    <string name="explore">Исследовать</string>
+    <string name="no_results_found">Результатов не найдено</string>
+    <string name="try_again">Пробовать снова</string>
+    <string name="no_internet_connection">Нет подключения к Интернету</string>
+    <string name="no_internet_connection_data_has_been_loaded_from_cache">Нет подключения к Интернету. Данные были загружены из кэша.</string>
+    <string name="image_not_found">Изображение не найдено</string>
+    <string name="loading">Загрузка…</string>
+    <string name="download">Загрузить</string>
+    <string name="downloading_image">Загрузка изображения…</string>
+    <string name="image_downloaded">Изображение загружено</string>
+    <string name="image_successfully_downloaded">Изображение успешно загружено</string>
+    <string name="an_error_occurred_while_uploading_the_image">При загрузке изображения произошла ошибка</string>
+    <string name="no_connection_download_image_is_impossible">Нет подключения. Загрузить изображение невозможно</string>
+    <string name="you_haven_t_saved_anything_yet">Вы еще ничего не сохранили</string>
+    <string name="bookmark">Закладки</string>
 </resources>

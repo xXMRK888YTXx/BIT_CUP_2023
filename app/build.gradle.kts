@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.xxmrk888ytxx.bit_cup_2023"
-        minSdk = 26
+        minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

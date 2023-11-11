@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,6 +28,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,6 +54,7 @@ import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.lightColors
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
 import com.xxmrk888ytxx.bit_cup_2023.home.domain.model.Category
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
@@ -132,6 +135,15 @@ fun CategoryList(
     searchBarText: String,
     onCategoryClicked: (Category) -> Unit,
 ) {
+
+    val orderedCategory = remember(categories, searchBarText) {
+        if (searchBarText.isEmpty() || categories.isEmpty()) return@remember categories
+
+        categories.searchSearched(searchBarText)
+    }
+    val lazyListState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -139,15 +151,21 @@ fun CategoryList(
                 top = 24.dp,
                 start = 24.dp,
                 end = 24.dp
-            )
+            ),
+        state = lazyListState
     ) {
-        itemsIndexed(categories, key = { _, it -> it.id }) { index, it ->
+        itemsIndexed(orderedCategory, key = { _, it -> it.id }) { index, it ->
             val isSelected = remember(categories, searchBarText) {
                 it.categoryName == searchBarText
             }
 
             Button(
-                onClick = { onCategoryClicked(it) },
+                onClick = {
+                    scope.launch {
+                        lazyListState.animateScrollToItem(0)
+                    }
+                    onCategoryClicked(it)
+                },
                 shape = RoundedCornerShape(100),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (isSelected) theme.selectedCategory else theme.nonSelectedCategory,
@@ -283,4 +301,17 @@ fun InternetErrorStub(
             )
         }
     }
+}
+
+private fun List<Category>.searchSearched(searchBarText: String): List<Category> {
+    val outputList = this.toMutableList()
+    for (i in 0..lastIndex) {
+        if (this[i].categoryName == searchBarText) {
+            val category = this[i]
+            outputList.removeAt(i)
+            outputList.add(0, category)
+            break
+        }
+    }
+    return outputList
 }

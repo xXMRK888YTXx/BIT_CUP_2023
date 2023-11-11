@@ -1,7 +1,12 @@
 package com.xxmrk888ytxx.bit_cup_2023.detail.presentaion
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,11 +23,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,6 +51,7 @@ import com.xxmrk888ytxx.bit_cup_2023.core.presentation.navigation.CollectNavigat
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.ApplicationFont
 import com.xxmrk888ytxx.bit_cup_2023.core.presentation.theme.theme
 import com.xxmrk888ytxx.bit_cup_2023.detail.presentaion.model.DetailsScreenState
+import com.xxmrk888ytxx.bit_cup_2023.domain.model.Image
 
 @Composable
 fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavController) {
@@ -77,15 +90,7 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
                 }
 
                 is DetailsScreenState.Loaded -> {
-                    AsyncImage(
-                        model = (screenState as DetailsScreenState.Loaded).image.imageUrl,
-                        contentDescription = "",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(24.dp)
-                            .clip(RoundedCornerShape(20.dp)),
-                        contentScale = ContentScale.Crop
-                    )
+                    ImageWithScale((screenState as DetailsScreenState.Loaded).image)
                 }
 
                 DetailsScreenState.Loading -> {
@@ -94,6 +99,67 @@ fun DetailsScreen(detailsViewModel: DetailsViewModel, navController: NavControll
             }
 
         }
+    }
+}
+
+@Composable
+fun ImageWithScale(
+    image: Image,
+) {
+    var scale by remember {
+        mutableFloatStateOf(1f)
+    }
+    var offset by remember {
+        mutableStateOf(Offset.Zero)
+    }
+
+    val animatedScale by animateFloatAsState(targetValue = scale, label = "")
+    val animatedOffset by animateOffsetAsState(targetValue = offset, label = "")
+
+    BoxWithConstraints(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
+        val state =
+            rememberTransformableState { zoomChange, panChange, rotationChange ->
+                scale = (scale * zoomChange).coerceIn(1f, 5f)
+
+                val extraWidth = (scale - 1) * constraints.maxWidth
+                val extraHeight = (scale - 1) * constraints.maxHeight
+
+                val maxX = extraWidth / 2
+                val maxY = extraHeight / 2
+
+                offset = Offset(
+                    x = (offset.x + scale * panChange.x).coerceIn(-maxX, maxX),
+                    y = (offset.y + scale * panChange.y).coerceIn(-maxY, maxY),
+                )
+            }
+
+        LaunchedEffect(state.isTransformInProgress) {
+            if (!state.isTransformInProgress) {
+                scale = 1f
+                offset = Offset.Zero
+            }
+        }
+
+        AsyncImage(
+            model = image.imageUrl,
+            contentDescription = "",
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp)
+                .clip(RoundedCornerShape(20.dp))
+                .fillMaxWidth()
+                .graphicsLayer {
+                    scaleX = animatedScale
+                    scaleY = animatedScale
+                    translationX = animatedOffset.x
+                    translationY = animatedOffset.y
+                }
+                .transformable(state),
+            contentScale = ContentScale.Crop
+        )
     }
 }
 
